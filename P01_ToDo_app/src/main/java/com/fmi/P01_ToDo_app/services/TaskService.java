@@ -3,21 +3,20 @@ package com.fmi.P01_ToDo_app.services;
 import com.fmi.P01_ToDo_app.models.Task;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
 
-    private ArrayList<Task> taskCollection = new ArrayList<>();
+    private List<Task> taskCollection = new ArrayList<>();
     private SequanceGenerator sequanceGenerator;
 
     public  TaskService(SequanceGenerator sequanceGenerator){
         this.sequanceGenerator = sequanceGenerator;
     }
 
-    public Task getTask(int id){
+    public Task getTaskById(int id){
         for (Task task: taskCollection){
             if(task.getId() == id){
                 return task;
@@ -27,7 +26,7 @@ public class TaskService {
         return null;
     }
 
-    public ArrayList<Task> getAllTasks(){
+    public List<Task> getAllTasks(){
         return this.taskCollection;
     }
 
@@ -38,30 +37,47 @@ public class TaskService {
         return taskToAdd;
     }
 
-    public void updateTask(Task newTask){
-        for(Task currTask : taskCollection){
-            if(currTask.getId() == newTask.getId()){
-                taskCollection.set(currTask.getId(), newTask);
-            }
+    public boolean updateTask(int id,Task newTask){
+        Task currTask = getTaskById(id);
+        if(currTask == null){
+            return false;
         }
+
+        currTask.setTitle(newTask.getTitle());
+        currTask.setDescription(newTask.getDescription());
+        currTask.setStatus(newTask.getStatus());
+        currTask.setDueDate(newTask.getDueDate());
+
+        this.taskCollection.set(id,currTask);
+        return true;
     }
 
-    public void deleteTask(int id){
+    public boolean deleteTask(int id){
         for(int i = 0; i < this.taskCollection.size(); i++){
             Task currTask = taskCollection.get(i);
 
             if(currTask.getId() == id){
                 taskCollection.set(i,null);
+                return true;
             }
         }
+
+        return false;
     }
 
-    public List<Task> filterTasks(String status){
-        List<Task> filteredTask = taskCollection.stream()
+    public List<Task> filterTasksByStatus(String status){
+        List<Task> filteredTask = this.taskCollection.stream()
                 .filter(task -> task.getStatus().equals(status))
                 .collect(Collectors.toList());
 
         return filteredTask;
     }
 
+    public List<Task> sortingTasksByDueDate(){
+        List sortedTasks = this.taskCollection.stream()
+                .sorted(Comparator.comparing(Task::getDueDate).reversed())
+                .toList();
+
+        return sortedTasks;
+    }
 }
