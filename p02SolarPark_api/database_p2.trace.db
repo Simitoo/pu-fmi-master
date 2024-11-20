@@ -1,0 +1,25 @@
+2024-11-14 15:46:08.787050+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS td_sites(\000d\000a    id INT PRIMARY KEY,\000d\000a    name VARCHAR(256),\000d\000a    address VARCHAR(256),\000d\000a    config_cost NUMBER,\000d\000a    other_cost NUMBER\000d\000a    [*]project_id INT,\000d\000a    is_active INT DEFAULT 1\000d\000a)"; expected "(, ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS td_sites(
+    id INT PRIMARY KEY,
+    name VARCHAR(256),
+    address VARCHAR(256),
+    config_cost NUMBER,
+    other_cost NUMBER
+    project_id INT,
+    is_active INT DEFAULT 1
+) [42001-224]
+2024-11-14 16:19:29.435563+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS td_sites(\000d\000a    id INT PRIMARY KEY AUTO_INCREMENT,\000d\000a    name VARCHAR(256),\000d\000a    address VARCHAR(256),\000d\000a    config_cost NUMBER,\000d\000a    other_cost NUMBER\000d\000a    [*]project_id INT,\000d\000a    is_active INT DEFAULT 1\000d\000a)"; expected "(, ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS td_sites(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(256),
+    address VARCHAR(256),
+    config_cost NUMBER,
+    other_cost NUMBER
+    project_id INT,
+    is_active INT DEFAULT 1
+) [42001-224]
+2024-11-14 16:20:10.544189+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TD_SITES" not found; SQL statement:
+DROP TABLE td_sites [42102-224]
