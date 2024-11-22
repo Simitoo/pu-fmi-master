@@ -6,7 +6,7 @@ public class Client {
     private String location;
     private String phone;
     private int age;
-    private byte hasAccidents = 0;
+    private byte hasAccidents = 0;  // 0 - false; 1 - true;
     private byte isActive = 1;
 
     public int getId() {

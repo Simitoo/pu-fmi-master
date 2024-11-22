@@ -2,14 +2,15 @@ package com.project01_rent_a_car_api.P01RentACar_api.repositories;
 
 import com.project01_rent_a_car_api.P01RentACar_api.constants.ExceptionMessages;
 import com.project01_rent_a_car_api.P01RentACar_api.constants.SQLStatements;
-import com.project01_rent_a_car_api.P01RentACar_api.entities.Client;
 import com.project01_rent_a_car_api.P01RentACar_api.entities.Offer;
 import com.project01_rent_a_car_api.P01RentACar_api.mappers.OfferRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class OfferRepository implements IRepository<Offer> {
 
     private JdbcTemplate db;
@@ -20,17 +21,17 @@ public class OfferRepository implements IRepository<Offer> {
 
     @Override
     public boolean insertRecord(Offer param) {
+
         try {
-            db.update(SQLStatements.INSERT_OFFER,
+            int rowAffected = db.update(SQLStatements.INSERT_OFFER,
                     param.getClientId(),
                     param.getCarId(),
                     param.getRentDays(),
-                    param.getOnWeekends(),
                     param.getFinalPrice());
 
-            return true;
+            return rowAffected > 0;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_INSERT_INTO_DATABASE);
+            throw new RuntimeException(ExceptionMessages.FAILED_INSERT_INTO_DATABASE);
         }
     }
 
@@ -42,7 +43,7 @@ public class OfferRepository implements IRepository<Offer> {
 
     @Override
     public Optional<Offer> getById(int id) {
-        List<Offer> offers = db.query(SQLStatements.SELECT_OFFER_BY_ID, new OfferRowMapper());
+        List<Offer> offers = db.query(SQLStatements.SELECT_OFFER_BY_ID, new OfferRowMapper(),id);
         return offers.isEmpty() ? Optional.empty() : Optional.of(offers.get(0));
     }
 
@@ -58,13 +59,12 @@ public class OfferRepository implements IRepository<Offer> {
                     param.getClientId(),
                     param.getCarId(),
                     param.getRentDays(),
-                    param.getOnWeekends(),
                     param.getFinalPrice(),
                     id);
 
             return rowsAffected > 0;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_UPDATE_OPERATION, e);
+            throw new RuntimeException(ExceptionMessages.FAILED_UPDATE_OPERATION, e);
         }
     }
 
@@ -80,7 +80,11 @@ public class OfferRepository implements IRepository<Offer> {
 
             return rowsAffected > 0;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_DELETE_OPERATION, e);
+            throw new RuntimeException(ExceptionMessages.FAILED_DELETE_OPERATION, e);
         }
+    }
+
+    public void acceptOfferById(int id){
+        db.update(SQLStatements.ACCEPT_OFFER, id);
     }
 }

@@ -12,9 +12,9 @@ public class CarRowMapper implements RowMapper<Car> {
         Car car = new Car();
         car.setId(rs.getInt("car_id"));
         car.setModel(rs.getString("model"));
-        car.setPricePerDay(rs.getBigDecimal("price_per_day"));
+        car.setPricePerDay(rs.getDouble("price_per_day"));
         car.setIsActive(rs.getByte("is_active"));
-        car.setCityID(rs.getInt("city_id"));
+        car.setLocationId(rs.getInt("location_id"));
 
         return car;
     }

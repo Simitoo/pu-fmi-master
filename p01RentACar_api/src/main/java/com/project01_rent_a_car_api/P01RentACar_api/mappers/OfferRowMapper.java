@@ -15,8 +15,7 @@ public class OfferRowMapper implements RowMapper<Offer> {
         offer.setClientId(rs.getInt("client_id"));
         offer.setCarId(rs.getInt("car_id"));
         offer.setRentDays(rs.getInt("rent_days"));
-        offer.setOnWeekends(rs.getByte("on_weekends"));
-        offer.setFinalPrice(rs.getBigDecimal("final_price"));
+        offer.setFinalPrice(rs.getDouble("final_price"));
         offer.setIsActive(rs.getByte("is_active"));
 
         return offer;

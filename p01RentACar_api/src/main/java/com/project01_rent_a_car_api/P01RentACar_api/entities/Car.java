@@ -1,13 +1,11 @@
 package com.project01_rent_a_car_api.P01RentACar_api.entities;
 
-import java.math.BigDecimal;
-
 public class Car {
     private int id;
     private String model;
-    private BigDecimal pricePerDay;
+    private double pricePerDay;
     private byte isActive = 1;
-    private int cityID;
+    private int locationId;
 
     public int getId() {
         return id;
@@ -25,11 +23,11 @@ public class Car {
         this.model = model;
     }
 
-    public BigDecimal getPricePerDay() {
+    public double getPricePerDay() {
         return pricePerDay;
     }
 
-    public void setPricePerDay(BigDecimal pricePerDay) {
+    public void setPricePerDay(double pricePerDay) {
         this.pricePerDay = pricePerDay;
     }
 
@@ -41,11 +39,11 @@ public class Car {
         this.isActive = isActive;
     }
 
-    public int getCityID() {
-        return cityID;
+    public int getLocationId() {
+        return locationId;
     }
 
-    public void setCityID(int cityID) {
-        this.cityID = cityID;
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
     }
 }

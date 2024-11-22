@@ -7,8 +7,7 @@ public class Offer {
     private int clientId;
     private int carId;
     private int rentDays;
-    private byte onWeekends = 0;
-    private BigDecimal finalPrice;
+    private double finalPrice;
     private byte isActive = 0;
 
     public int getId() {
@@ -43,19 +42,11 @@ public class Offer {
         this.rentDays = rentDays;
     }
 
-    public byte getOnWeekends() {
-        return onWeekends;
-    }
-
-    public void setOnWeekends(byte onWeekends) {
-        this.onWeekends = onWeekends;
-    }
-
-    public BigDecimal getFinalPrice() {
+    public double getFinalPrice() {
         return finalPrice;
     }
 
-    public void setFinalPrice(BigDecimal finalPrice) {
+    public void setFinalPrice(double finalPrice) {
         this.finalPrice = finalPrice;
     }
 

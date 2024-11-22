@@ -5,10 +5,12 @@ import com.project01_rent_a_car_api.P01RentACar_api.constants.SQLStatements;
 import com.project01_rent_a_car_api.P01RentACar_api.entities.Car;
 import com.project01_rent_a_car_api.P01RentACar_api.mappers.CarRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class CarRepository implements IRepository<Car> {
 
     private JdbcTemplate db;
@@ -24,11 +26,11 @@ public class CarRepository implements IRepository<Car> {
             db.update(SQLStatements.INSERT_CAR,
                     param.getModel(),
                     param.getPricePerDay(),
-                    param.getCityID());
+                    param.getLocationId());
 
             return true;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_INSERT_INTO_DATABASE, e);
+            throw new RuntimeException(ExceptionMessages.FAILED_INSERT_INTO_DATABASE, e);
         }
     }
 
@@ -41,7 +43,7 @@ public class CarRepository implements IRepository<Car> {
     @Override
     public Optional<Car> getById(int id) {
 
-        List<Car> cars = db.query(SQLStatements.SELECT_CAR_BY_ID, new CarRowMapper());
+        List<Car> cars = db.query(SQLStatements.SELECT_CAR_BY_ID, new CarRowMapper(), id);
         return cars.isEmpty() ? Optional.empty() : Optional.of(cars.get(0));
     }
 
@@ -56,12 +58,12 @@ public class CarRepository implements IRepository<Car> {
             int rowsAffected = db.update(SQLStatements.UPDATE_CAR_BY_ID,
                     param.getModel(),
                     param.getPricePerDay(),
-                    param.getCityID(),
+                    param.getLocationId(),
                     id);
 
             return rowsAffected > 0;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_UPDATE_OPERATION, e);
+            throw new RuntimeException(ExceptionMessages.FAILED_UPDATE_OPERATION, e);
         }
     }
 
@@ -77,12 +79,12 @@ public class CarRepository implements IRepository<Car> {
 
             return rowsAffected > 0;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_UPDATE_OPERATION, e);
+            throw new RuntimeException(ExceptionMessages.FAILED_UPDATE_OPERATION, e);
         }
     }
 
-    public List<Car> fillterCarsByLocation(int locationID){
+    public List<Car> filterCarsByLocation(int locationID){
 
-        return db.query(SQLStatements.FILTER_CARS_BY_LOCATION, new CarRowMapper());
+        return db.query(SQLStatements.FILTER_CARS_BY_LOCATION, new CarRowMapper(),locationID);
     }
 }

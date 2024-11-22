@@ -18,8 +18,8 @@ car_id INT AUTO_INCREMENT PRIMARY KEY,
 model VARCHAR(256) NOT NULL,
 price_per_day DECIMAL(10, 2) NOT NULL,
 is_active TINYINT DEFAULT 1,
-city_id INT NOT NULL,
-FOREIGN KEY (city_id) REFERENCES Locations(location_id)
+location_id INT NOT NULL,
+FOREIGN KEY (location_id) REFERENCES Locations(location_id)
 );
 
 CREATE TABLE IF NOT EXISTS Offers (
@@ -27,7 +27,6 @@ offer_id INT AUTO_INCREMENT PRIMARY KEY,
 client_id INT NOT NULL,
 car_id INT NOT NULL,
 rent_days INT NOT NULL,
-on_weekends TINYINT DEFAULT 0,
 final_price DECIMAL(10, 2) NOT NULL,
 is_active TINYINT DEFAULT 0,
 FOREIGN KEY (client_id) REFERENCES Clients(client_id),

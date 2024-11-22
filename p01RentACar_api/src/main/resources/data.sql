@@ -32,19 +32,19 @@ WHERE NOT EXISTS (
 
             --- inserts for Cars ---
 
-INSERT INTO Cars (model, price_per_day, city_id)
+INSERT INTO Cars (model, price_per_day, location_id)
 SELECT 'Toyota Camry', 20.50, 4
 WHERE NOT EXISTS (
     SELECT 1 FROM Cars WHERE car_id = 1
 );
 
-INSERT INTO Cars (model, price_per_day, city_id)
+INSERT INTO Cars (model, price_per_day, location_id)
 SELECT 'Ford Mustang', 40, 1
 WHERE NOT EXISTS (
     SELECT 1 FROM Cars WHERE car_id = 2
 );
 
-INSERT INTO Cars (model, price_per_day, city_id)
+INSERT INTO Cars (model, price_per_day, location_id)
 SELECT 'Porsche 911', 70.90, 2
 WHERE NOT EXISTS (
     SELECT 1 FROM Cars WHERE car_id = 3

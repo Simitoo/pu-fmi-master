@@ -27,7 +27,7 @@ public class LocationRepository implements IRepository<Location> {
 
             return true;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_INSERT_INTO_DATABASE,e);
+            throw new RuntimeException(ExceptionMessages.FAILED_INSERT_INTO_DATABASE,e);
         }
     }
 

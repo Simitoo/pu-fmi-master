@@ -33,7 +33,7 @@ public class ClientRepository implements IRepository<Client> {
 
             return true;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_INSERT_INTO_DATABASE, e);
+            throw new RuntimeException(ExceptionMessages.FAILED_INSERT_INTO_DATABASE, e);
         }
     }
 
@@ -46,7 +46,7 @@ public class ClientRepository implements IRepository<Client> {
     @Override
     public Optional<Client> getById(int id) {
 
-        List<Client> clients = this.db.query(SQLStatements.SELECT_CLIENT_BY_ID, new ClientRowMapper());
+        List<Client> clients = this.db.query(SQLStatements.SELECT_CLIENT_BY_ID, new ClientRowMapper(),id);
         return clients.isEmpty() ? Optional.empty() : Optional.of(clients.get(0));
     }
 
@@ -68,7 +68,7 @@ public class ClientRepository implements IRepository<Client> {
 
             return rowsAffected > 0;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_UPDATE_OPERATION, e);
+            throw new RuntimeException(ExceptionMessages.FAILED_UPDATE_OPERATION, e);
         }
     }
 
@@ -84,7 +84,7 @@ public class ClientRepository implements IRepository<Client> {
 
             return rowsAffected > 0;
         } catch (Exception e){
-            throw new RuntimeException(ExceptionMessages.FAILD_DELETE_OPERATION, e);
+            throw new RuntimeException(ExceptionMessages.FAILED_DELETE_OPERATION, e);
         }
     }
 }
